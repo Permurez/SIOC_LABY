@@ -50,7 +50,7 @@ def interpolacja(x_org, y_org, x_new, j):
 for kernel_num in [a]:
  
     plt.plot(x, y, 'k.', label='oryginał')  
-
+    
     for mult in c:
         N_new = N_org * mult
         x_new = np.linspace(-pi, pi, N_new)
