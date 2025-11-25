@@ -1,30 +1,34 @@
 import numpy as np
 import matplotlib.pyplot as plt
 
+img = plt.imread('grey_photo.jpg')
 
-Grey_Image='grey_photo.jpg'
-Reduction_Factor=2
-Enlargment_Factor=2
-Kernel_Size= 2 
-M=Kernel_Size
-H,W = Grey_Image.shape
-def Reduce_Image (Image,Reduction_Factor, Kernel_Size):
-    N = Reduction_Factor * Reduction_Factor
-    kernel= np.full((Reduction_Factor, Reduction_Factor), 1 / N, dtype=np.float32) 
+if len(img.shape) == 3:  
+    img = np.dot(img[..., :3], [0.299, 0.587, 0.114])
+# RGB to Grey
+Grey_Image = img.astype(np.float64) 
+H, W =Grey_Image.shape
+factor = 2
 
-image_float = Grey_Image.astype(np.float32)
 
-H_conv = H - M +1
-W_conv = W - M +1
 
-obraz_usrednoniony = np.zeros((H_conv, W_conv), dtype=np.float32)
-for i in range(H_conv):
-    for j in range(W_conv):
-        patch = image_float[i:i+Reduction_Factor, j:j+Reduction_Factor]
+def Reduce_Image (img, factor): 
+    kernel = np.ones((factor, factor), dtype=np.float32) / (factor * factor)
+    H, W = img.shape
+    Hc = H - factor + 1
+    Wc = W - factor + 1
+
+    conv = np.zeros((Hc, Wc))
+
+    for i in range(Hc):
+        for j in range(Wc):
+            patch = img[i:i+factor, j:j+factor]
+            conv[i, j] = np.sum(patch * kernel)
+    return conv[::factor, ::factor]
 
 def Enlarge_Image(image,factor):
     #N macierz
-    N=factor*factor 
+    N=factor*factor
      
 
 
