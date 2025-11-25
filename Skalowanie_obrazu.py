@@ -7,7 +7,7 @@ if len(img.shape) == 3:
 # RGB to Grey
 Grey_Image = img.astype(np.float64) 
 H, W =Grey_Image.shape
-factor = 2
+factor = 10
 def MSE_(image1, image2):
     # Dopasowanie rozmiaru: bierzemy wspólny fragment
     H = min(image1.shape[0], image2.shape[0])
