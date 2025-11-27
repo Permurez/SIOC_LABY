@@ -71,7 +71,7 @@ def h4(t):
 def interpolacja(x_org, y_org, x_new, j):
     dx = x_org[1] - x_org[0]
     t = (x_new[:, None] - x_org[None, :]) / dx
-    waga = j(t)
+    waga = j(t).astype(float)
     y_new = np.sum(y_org * waga, axis=1) / np.sum(waga, axis=1)
     return y_new
 jadra = {1: h1, 2: h2, 3: h3, 4: h4}
@@ -89,17 +89,13 @@ plt.figure(figsize=(18, 5))
 plt.subplot(1, 3, 1)
 plt.imshow(Grey_Image, cmap='gray')
 plt.title('Original Grey Image')
-plt.axis('off')
-
-plt.subplot(1, 3, 2)
-plt.imshow(reduced_image, cmap='gray')
-plt.title(f'Reduced Image (factor={factor})')
-plt.axis('off')
-
 plt.subplot(1, 3, 3)
 plt.imshow(reduced_enlarged_image, cmap='gray')
 plt.title(f'Enlarged Image (h{aaa}/h{bbb}, MSE={mse_value:.2f})')
 plt.axis('off')
+plt.imshow(final_img, cmap='gray')
+plt.title(f'Enlarged Image (MSE={mse_value:.2f})')
+plt.subplot(1, 3, 3)
 
 plt.tight_layout()
 plt.show()
