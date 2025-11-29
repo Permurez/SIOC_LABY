@@ -7,7 +7,7 @@ c = [2, 4, 10]  # współczynniki mnożące liczbę punktów
 pi = np.pi
 N_org = 100
 x = np.linspace(-pi, pi, N_org)
-wybor_funkcji = 3  # wybór funkcji
+wybor_funkcji = 1  # wybór funkcji
 
 # Definicje jąder
 def h1(t):
@@ -53,7 +53,7 @@ def interpolacja(x_org, y_org, x_new, j):
     y_new = np.sum(y_org * waga, axis=1) / np.sum(waga, axis=1)
     return y_new
 
-# Tworzymy 3 subplots w jednym oknie
+
 fig, axs = plt.subplots(1, 3, figsize=(18, 5), sharey=True)
 
 for i, mult in enumerate(c):
@@ -64,7 +64,7 @@ for i, mult in enumerate(c):
 
     axs[i].plot(x, y, 'k.', label='oryginał')
     axs[i].scatter(x_new, y_new, color='r', label=f'{mult} razy więcej punktów')
-    axs[i].set_title(f'MSE={mse:.4f}')
+    axs[i].set_title(f'MSE={mse:.20f}')#4 do wykresow, do tabeli wiecej
     axs[i].legend()
     axs[i].grid()
 

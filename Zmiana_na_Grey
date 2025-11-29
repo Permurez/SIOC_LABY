@@ -1,0 +1,18 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Wczytanie obrazu
+img = plt.imread('kamien.jpg')
+
+# Konwersja na skalę szarości, jeśli obraz jest kolorowy
+if len(img.shape) == 3: 
+ img = np.dot(img[..., :3], [0.299, 0.587, 0.114])
+
+# Konwersja na typ zmiennoprzecinkowy (float64)
+Grey_Image = img.astype(np.float64)
+
+# Wyświetlenie obrazu
+plt.figure(figsize=(8, 6))
+plt.imshow(Grey_Image, cmap='gray')
+plt.axis('off')
+plt.show()
