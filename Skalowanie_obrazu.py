@@ -1,19 +1,16 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from skimage import data, color
+
 #zmiana jader uzywanych przy skalowaniu
 #wiersz
-aaa=1
+aaa=2
 #kolumna
 bbb=2
 #ile razy zmniejszamy i powiekszamy
 factor=2
-img = plt.imread('kamien.jpg').astype(np.float32)
-if img.max() > 1.0:  # jeśli zakres 0-255
-    img = img / 255.0 #nie podaje w greyscale wiec trzeba normlaizowac do 1.0
-if len(img.shape) == 3:  
-    img = np.dot(img[..., :3], [0.299, 0.587, 0.114])
-# RGB to Grey
-Grey_Image = img
+#Gotowy obraz z skimage
+Grey_Image = data.camera()
 H, W =Grey_Image.shape
 
 def MSE_(image1, image2):
@@ -79,25 +76,23 @@ jadra = {1: h1, 2: h2, 3: h3, 4: h4}
 
 #ZROBIĆ ZA POMOCA 2 JADER INTERPOLACJE
 
-
 reduced_image = Reduce_Image(Grey_Image, factor)
 reduced_enlarged_image = Enlarge_Image(reduced_image, factor, jadra[aaa], jadra[bbb])  
-
 # Oblicza MSE między oryginalnym obrazem a powiększonym obrazem
 mse_value = MSE_(Grey_Image, reduced_enlarged_image)
 
-plt.figure(figsize=(18, 5))
-plt.subplot(1, 3, 1)
-plt.imshow(Grey_Image, cmap='gray')
-plt.title('Original Grey Image')
-plt.axis('off')
+plt.figure(figsize=(6, 5))
+#plt.subplot(1, 3, 1)
+#plt.imshow(Grey_Image, cmap='gray')
+#plt.title('Original Grey Image')
+#plt.axis('off')
 
-plt.subplot(1, 3, 2)
-plt.imshow(reduced_image, cmap='gray')
-plt.title(f'Reduced Image (factor={factor})')
-plt.axis('off')
+#plt.subplot(1, 3, 2)
+#plt.imshow(reduced_image, cmap='gray')
+#plt.title(f'Reduced Image (factor={factor})')
+#plt.axis('off')
 
-plt.subplot(1, 3, 3)
+plt.subplot()
 plt.imshow(reduced_enlarged_image, cmap='gray')
 plt.title(f'Reduced enlarged Image (h{aaa}/h{bbb}, MSE={mse_value:.5f})')
 plt.axis('off')
