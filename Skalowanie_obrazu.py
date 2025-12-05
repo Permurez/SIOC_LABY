@@ -4,7 +4,7 @@ from skimage import data, color
 
 #zmiana jader uzywanych przy skalowaniu
 #wiersz
-aaa=2
+aaa=1
 #kolumna
 bbb=2
 #ile razy zmniejszamy i powiekszamy
