@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from skimage import data, color
+from PIL import Image
 
 # wczytuje obraz
 image_rgb = data.astronaut()
@@ -28,7 +29,7 @@ W = np.array([[ 0, -1, 0],
               [ -1,  5, -1],
               [ 0, -1, 0]])
 
-# [NOWE] Jądra do demozaikowania
+#Jądra do demozaikowania
 K_green = np.array([[0, 1, 0],
                      [1, 4, 1],
                     [0, 1, 0]]) / 4
@@ -122,3 +123,14 @@ for ax in axes.flat: ax.axis('off')
 plt.tight_layout()
 plt.show()
 
+# Automatyczne zapisywanie obrazów
+
+Image.fromarray((image * 255).astype(np.uint8)).save('image_astronaut_grayscale.png')
+Image.fromarray((image_rgb * 255).astype(np.uint8)).save('image_astronaut_rgb.png')
+Image.fromarray((image_blur * 255).astype(np.uint8)).save('image_blur.png')
+Image.fromarray((image_sharp * 255).astype(np.uint8)).save('image_sharp.png')
+Image.fromarray((image_sobel * 255).astype(np.uint8)).save('image_sobel.png')
+Image.fromarray((image_laplace * 255).astype(np.uint8)).save('image_laplace.png')
+Image.fromarray((image_demosaic * 255).astype(np.uint8)).save('image_demosaic.png')
+
+print("Wszystkie obrazy zostały zapisane!")
